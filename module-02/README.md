@@ -91,7 +91,7 @@ WHERE tpep_pickup_datetime >= '2021-03-01'
 - Add a `timezone` property set to `UTC-5` in the `Schedule` trigger configuration
 - Add a `location` property set to `New_York` in the `Schedule` trigger configuration  
 
-**=> Answer:** `Add a `timezone` property set to `America/New_York` in the `Schedule` trigger configuration`
+**=> Answer:** Add a `timezone` property set to `America/New_York` in the `Schedule` trigger configuration
 
 ```yaml
 triggers:
