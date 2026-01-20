@@ -32,7 +32,7 @@ Complete the quiz shown below. It's a set of 6 multiple-choice questions to test
 - 364.7 MiB
 - 692.6 MiB
 
-=> Answer is `128.3 MiB`
+**=> Answer:** `128.3 MiB`
 
 ![Yellow Taxi 2020-12 extract output size](./images/yellow_2020_12.png)
 
@@ -42,11 +42,21 @@ Complete the quiz shown below. It's a set of 6 multiple-choice questions to test
 - `green_tripdata_04_2020.csv`
 - `green_tripdata_2020.csv`
 
+**=> Answer:** `green_tripdata_2020-04.csv`
+
+![Variable file name](./images/variable-file.png)
+
 3) How many rows are there for the `Yellow` Taxi data for all CSV files in the year 2020?
 - 13,537.299
 - 24,648,499
 - 18,324,219
 - 29,430,127
+
+**=> Answer:** `24,648,499`
+
+```sql
+select count(*) from yellow_tripdata;
+```
 
 4) How many rows are there for the `Green` Taxi data for all CSV files in the year 2020?
 - 5,327,301
@@ -54,11 +64,26 @@ Complete the quiz shown below. It's a set of 6 multiple-choice questions to test
 - 1,734,051
 - 1,342,034
 
+**=> Answer:** `1,734,051`
+
+```sql
+select count(*) from green_tripdata;
+```
+
 5) How many rows are there for the `Yellow` Taxi data for the March 2021 CSV file?
 - 1,428,092
 - 706,911
 - 1,925,152
 - 2,561,031
+
+**=> Answer:** `1,925,152`
+
+```sql
+SELECT COUNT(*)
+FROM yellow_tripdata
+WHERE tpep_pickup_datetime >= '2021-03-01'
+  AND tpep_pickup_datetime <  '2021-04-01';
+```
 
 6) How would you configure the timezone to New York in a Schedule trigger?
 - Add a `timezone` property set to `EST` in the `Schedule` trigger configuration  
@@ -66,11 +91,21 @@ Complete the quiz shown below. It's a set of 6 multiple-choice questions to test
 - Add a `timezone` property set to `UTC-5` in the `Schedule` trigger configuration
 - Add a `location` property set to `New_York` in the `Schedule` trigger configuration  
 
-## Submitting the solutions
+**=> Answer:** `Add a `timezone` property set to `America/New_York` in the `Schedule` trigger configuration`
 
-* Form for submitting: https://courses.datatalks.club/de-zoomcamp-2026/homework/hw2
-* Check the link above to see the due date
+```yaml
+triggers:
+  - id: green_schedule
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 9 1 * *"
+    timezone: America/New_York
+    inputs:
+      taxi: green
 
-## Solution
-
-Will be added after the due date
+  - id: yellow_schedule
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 10 1 * *"
+    timezone: America/New_York
+    inputs:
+      taxi: yellow
+```
